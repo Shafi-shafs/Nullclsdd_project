@@ -1,14 +1,14 @@
 import React from "react";
-import Home from "../Pages/Home/Home";
+import Home from "../Pages/Home/Home.jsx";
 import { Routes, Route } from "react-router-dom";
-import Library from "../Pages/Library/Library";
-import YourVideo from "../Pages/YourVideo/YourVideo";
-import WatchHistory from "../Pages/WatchHistory/WatchHistory";
-import WatchLater from "../Pages/WatchLater/WatchLater";
-import LikedVideo from "../Pages/LikedVideo/LikedVideo";
-import VideoPage from "../Pages/VideoPage/VideoPage";
-import Chanel from "../Pages/Chanel/Chanel";
-import Search from "../Pages/Search/Search";
+import Library from "../Pages/Library/Library.jsx";
+import YourVideo from "../Pages/YourVideo/YourVideo.jsx";
+import WatchHistory from "../Pages/WatchHistory/WatchHistory.jsx";
+import WatchLater from "../Pages/WatchLater/WatchLater.jsx";
+import LikedVideo from "../Pages/LikedVideo/LikedVideo.jsx";
+import VideoPage from "../Pages/VideoPage/VideoPage.jsx";
+import Chanel from "../Pages/Chanel/Chanel.jsx";
+import Search from "../Pages/Search/Search.jsx";
 function AllRoutes({ setEditCreateChanelBtn,setVidUploadPage }) {
   return (
     <Routes>

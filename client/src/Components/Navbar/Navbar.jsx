@@ -36,9 +36,6 @@ function Navbar({ toggleDrawer, setEditCreateChanelBtn }) {
   }, []);
 
   const dispatch = useDispatch();
-  // const logTmp=()=>{
-  //   dispatch(login({ email:"abzxy50312@gmail.com" }));
-  // }
   const onSuccess = (response) => {
     const Email = response?.profileObj.email;
     console.log(Email);

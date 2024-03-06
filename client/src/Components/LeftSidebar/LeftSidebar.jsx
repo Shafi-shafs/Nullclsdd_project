@@ -16,7 +16,7 @@ function LeftSidebar() {
             <div className="text_sidebar_icon">Explore</div>
         </div>
         <div className='icon_sidebar_div' >
-            <img src={shorts} width={22} className="icon_sidebar"/>
+            <img alt='side' src={shorts} width={22} className="icon_sidebar"/>
             <div className="text_sidebar_icon">Shorts</div>
         </div>
         <div className='icon_sidebar_div' >
