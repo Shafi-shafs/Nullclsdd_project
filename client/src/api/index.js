@@ -1,10 +1,7 @@
 import axios from "axios";
-
-// const API = axios.create({ baseURL: `http://localhost:5500/` });
+import { useEffect } from "react";
 
 const API = axios.create({ baseURL: `https://nullclass-back.onrender.com/` });
-
-// const API = axios.create({ baseURL: `https://nullclass-back.onrender.com/` });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("Profile")) {
@@ -44,7 +41,29 @@ export const getAllHistory = () => API.get("/video/getAllHistory");
 export const deleteHistory = (userId) =>
   API.delete(`/video/deleteHistory/${userId}`);
 
-  export const postComment=(CommentData)=>API.post('/comment/post',CommentData)
-  export const deleteComment=(id)=>API.delete(`/comment/delete/${id}`)
-  export const editComment=(id,commentBody)=>API.patch(`/comment/edit/${id}`,{commentBody})
-  export const getAllComment=()=>API.get('/comment/get')
+export const postComment = (CommentData) => API.post('/comment/post', CommentData);
+export const deleteComment = (id) => API.delete(`/comment/delete/${id}`);
+export const editComment = (id, commentBody) => API.patch(`/comment/edit/${id}`, { commentBody });
+export const getAllComment = () => API.get('/comment/get');
+
+export const useFetchDataEveryThreeSeconds = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await Promise.all([
+          getVideos(),
+          getAlllikedVideo(),
+          getAllwatchLater(),
+          getAllHistory(),
+          getAllComment()
+        ]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    const intervalId = setInterval(fetchData, 3000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+};

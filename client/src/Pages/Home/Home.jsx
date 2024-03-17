@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import LeftSidebar from "../../Components/LeftSidebar/LeftSidebar";
-import ShowVideoGrid from "../../Components/ShowVideoGrid/ShowVideoGrid";
+import LeftSidebar from "../../Components/LeftSidebar/LeftSidebar.jsx";
+import ShowVideoGrid from "../../Components/ShowVideoGrid/ShowVideoGrid.jsx";
 import "./Home.css";
 function Home() {
 
