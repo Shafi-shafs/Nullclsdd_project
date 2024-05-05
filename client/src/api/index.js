@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 
+// const API = axios.create({ baseURL: `http://localhost:5500/` });
 const API = axios.create({ baseURL: `https://nullclass-back.onrender.com/` });
 
 API.interceptors.request.use((req) => {

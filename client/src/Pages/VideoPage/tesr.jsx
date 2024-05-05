@@ -7,7 +7,6 @@ import LikeWatchLaterSaveBtns from "./LikeWatchLaterSaveBtns";
 import "./VideoPage.css";
 import { addToHistory } from "../../actions/History";
 import { viewVideo } from "../../actions/video";
-import ShowVideoGrid from "../../Components/ShowVideoGrid/ShowVideoGrid";
 
 function VideoPage() {
   const { vid } = useParams();
@@ -15,9 +14,9 @@ function VideoPage() {
   const vv = vids?.data.find((q) => q._id === vid);
   const dispatch = useDispatch();
   const CurrentUser = useSelector((state) => state?.currentUserReducer);
-  const [videoQuality, setVideoQuality] = useState("480p"); 
-  const [videoSource, setVideoSource] = useState(""); 
-  const [loading, setLoading] = useState(true); 
+  const [videoQuality, setVideoQuality] = useState("480p"); // Default quality
+  const [videoSource, setVideoSource] = useState(""); // Video source URL
+  const [loading, setLoading] = useState(true); // Loading state
 
   const handleHistory = useCallback(() => {
     dispatch(
@@ -40,7 +39,9 @@ function VideoPage() {
   }, [CurrentUser, handleHistory, handleViews]);
 
   useEffect(() => {
+    // Check if video data is available
     if (vv) {
+      // Construct video source URL with selected quality
       const sourceUrl = `https://nullclass-back.onrender.com/${vv.filePath}?quality=${videoQuality}`; // Use ? instead of &
       setVideoSource(sourceUrl);
       setLoading(false);
@@ -106,7 +107,6 @@ function VideoPage() {
           </div>
           <div className="moreVideoBar">
             <h2>More video</h2>
-            <ShowVideoGrid/>
           </div>
         </div>
       </div>

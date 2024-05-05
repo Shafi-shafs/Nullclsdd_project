@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import Comments from "../../Components/Comments/Comments";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,17 +7,13 @@ import LikeWatchLaterSaveBtns from "./LikeWatchLaterSaveBtns";
 import "./VideoPage.css";
 import { addToHistory } from "../../actions/History";
 import { viewVideo } from "../../actions/video";
-import ShowVideoGrid from "../../Components/ShowVideoGrid/ShowVideoGrid";
 
 function VideoPage() {
   const { vid } = useParams();
   const vids = useSelector((state) => state.videoReducer);
-  const vv = vids?.data.find((q) => q._id === vid);
+  const vv = vids?.data.filter((q) => q._id === vid)[0];
   const dispatch = useDispatch();
   const CurrentUser = useSelector((state) => state?.currentUserReducer);
-  const [videoQuality, setVideoQuality] = useState("480p"); 
-  const [videoSource, setVideoSource] = useState(""); 
-  const [loading, setLoading] = useState(true); 
 
   const handleHistory = useCallback(() => {
     dispatch(
@@ -29,7 +25,9 @@ function VideoPage() {
   }, [dispatch, vid, CurrentUser]);
 
   const handleViews = useCallback(() => {
-    dispatch(viewVideo({ id: vid }));
+    dispatch(viewVideo({
+      id: vid
+    }));
   }, [dispatch, vid]);
 
   useEffect(() => {
@@ -39,29 +37,13 @@ function VideoPage() {
     handleViews();
   }, [CurrentUser, handleHistory, handleViews]);
 
-  useEffect(() => {
-    if (vv) {
-      const sourceUrl = `https://nullclass-back.onrender.com/${vv.filePath}?quality=${videoQuality}`; // Use ? instead of &
-      setVideoSource(sourceUrl);
-      setLoading(false);
-    }
-  }, [vv, videoQuality]);
-
-  const handleQualityChange = (quality) => {
-    setVideoQuality(quality);
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
       <div className="container_videoPage">
         <div className="container2_videoPage">
           <div className="video_display_screen_videoPage">
             <video
-              src={videoSource}
+              src={`https://nullclass-back.onrender.com/${vv?.filePath}`}
               className="video_ShowVideo_videoPage"
               controls
             ></video>
@@ -89,24 +71,12 @@ function VideoPage() {
                 <h2>
                   <u>Comments</u>
                 </h2>
-                <Comments videoId={vv._id} />
+                <Comments videoId={vv._id}/>
               </div>
             </div>
           </div>
-          <div className="quality_dropdown">
-            <select
-              value={videoQuality}
-              onChange={(e) => handleQualityChange(e.target.value)}
-            >
-              <option value="360p">360p</option>
-              <option value="480p">480p</option>
-              <option value="720p">720p</option>
-              <option value="1080p">1080p</option>
-            </select>
-          </div>
           <div className="moreVideoBar">
             <h2>More video</h2>
-            <ShowVideoGrid/>
           </div>
         </div>
       </div>
